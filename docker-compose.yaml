@@ -8,7 +8,7 @@ services:
     image: oraculo-app:latest
     networks:
       - default
-      - external_etl_api
+      - shared_etl_api
     env_file:
       - .env
     environment:
@@ -37,7 +37,7 @@ services:
       - "8085:80"
     networks:
       - default
-      - external_etl_api
+      - shared_etl_api
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - public:/var/www/html/public:ro
@@ -64,6 +64,6 @@ volumes:
   public:
 
 networks:
-  external_etl_api:
+  shared_etl_api:
     external: true
     name: ${ETL_API_NETWORK:-diarios_default}
