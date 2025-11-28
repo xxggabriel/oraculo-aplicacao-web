@@ -18,6 +18,11 @@ class JurisprudenciaController extends Controller
 
     public function search(Request $request, JurimetriaSearchService $service): JsonResponse
     {
+        // Normaliza checkbox/boolean vindo do frontend para valores aceitáveis pela validação.
+        $request->merge([
+            'incluir_sem_classificacao' => $request->boolean('incluir_sem_classificacao'),
+        ]);
+
         $validated = $request->validate([
             'q' => ['nullable', 'string', 'max:500'],
             'tribunais' => ['array'],
@@ -44,7 +49,7 @@ class JurisprudenciaController extends Controller
             'page' => ['nullable', 'integer', 'min:1'],
             'sort_field' => ['nullable', 'in:data_julgamento,data_distribuicao,classificacao_confianca'],
             'sort_direction' => ['nullable', 'in:asc,desc'],
-            'incluir_sem_classificacao' => ['sometimes', 'boolean'],
+            'incluir_sem_classificacao' => ['nullable', 'boolean'],
         ]);
 
         $filters = SearchFilters::fromArray([
