@@ -34,13 +34,14 @@
                 showBase: root.data('show-base'),
             };
 
-            const baseState = {
-                q: '',
-                tribunais: [],
-                classes: [],
-                assuntos: [],
-                graus: [],
-                classificacoes: [],
+        const baseState = {
+            q: '',
+            incluir_sem_classificacao: false,
+            tribunais: [],
+            classes: [],
+            assuntos: [],
+            graus: [],
+            classificacoes: [],
                 modelos: [],
                 versoes: [],
                 confianca_min: '',
@@ -81,23 +82,24 @@
 
             const applyFormState = () => {
                 state.q = ($form.find('[name="q"]').val() || '').toString().trim();
-                state.tribunais = $form.find('[name="tribunais[]"]').val() || [];
-                state.classes = $form.find('[name="classes[]"]').val() || [];
-                state.assuntos = $form.find('[name="assuntos[]"]').val() || [];
-                state.graus = $form.find('[name="graus[]"]').val() || [];
-                state.classificacoes = $form.find('[name="classificacoes[]"]').val() || [];
-                state.modelos = $form.find('[name="modelos[]"]').val() || [];
-                state.versoes = $form.find('[name="versoes[]"]').val() || [];
-                state.confianca_min = $form.find('[name="confianca_min"]').val() || '';
-                state.confianca_max = $form.find('[name="confianca_max"]').val() || '';
-                state.data_distribuicao_inicio = $form.find('[name="data_distribuicao_inicio"]').val() || '';
-                state.data_distribuicao_fim = $form.find('[name="data_distribuicao_fim"]').val() || '';
-                state.data_julgamento_inicio = $form.find('[name="data_julgamento_inicio"]').val() || '';
-                state.data_julgamento_fim = $form.find('[name="data_julgamento_fim"]').val() || '';
-                state.per_page = parseInt($perPage.val(), 10) || 15;
-                state.sort_field = $sortField.val();
-                state.sort_direction = $sortDirection.val();
-            };
+            state.tribunais = $form.find('[name="tribunais[]"]').val() || [];
+            state.classes = $form.find('[name="classes[]"]').val() || [];
+            state.assuntos = $form.find('[name="assuntos[]"]').val() || [];
+            state.graus = $form.find('[name="graus[]"]').val() || [];
+            state.classificacoes = $form.find('[name="classificacoes[]"]').val() || [];
+            state.modelos = $form.find('[name="modelos[]"]').val() || [];
+            state.versoes = $form.find('[name="versoes[]"]').val() || [];
+            state.confianca_min = $form.find('[name="confianca_min"]').val() || '';
+            state.confianca_max = $form.find('[name="confianca_max"]').val() || '';
+            state.data_distribuicao_inicio = $form.find('[name="data_distribuicao_inicio"]').val() || '';
+            state.data_distribuicao_fim = $form.find('[name="data_distribuicao_fim"]').val() || '';
+            state.data_julgamento_inicio = $form.find('[name="data_julgamento_inicio"]').val() || '';
+            state.data_julgamento_fim = $form.find('[name="data_julgamento_fim"]').val() || '';
+            state.per_page = parseInt($perPage.val(), 10) || 15;
+            state.sort_field = $sortField.val();
+            state.sort_direction = $sortDirection.val();
+            state.incluir_sem_classificacao = $('#incluir_sem_classificacao').is(':checked');
+        };
 
             const renderSelectOptions = (bucketKey, selectName, aggs) => {
                 const select = $form.find(`[name="${selectName}"]`);
@@ -344,13 +346,14 @@
                 performSearch({ resetPage: true });
             });
 
-            $('#reset-filters').on('click', (event) => {
-                event.preventDefault();
-                $form[0].reset();
-                $form.find('select[multiple]').val([]);
-                state = { ...baseState };
-                performSearch({ resetPage: true });
-            });
+        $('#reset-filters').on('click', (event) => {
+            event.preventDefault();
+            $form[0].reset();
+            $form.find('select[multiple]').val([]);
+            $('#incluir_sem_classificacao').prop('checked', false);
+            state = { ...baseState };
+            performSearch({ resetPage: true });
+        });
 
             $sortField.on('change', () => {
                 applyFormState();

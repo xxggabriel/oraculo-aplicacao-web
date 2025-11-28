@@ -143,12 +143,14 @@ class JurimetriaSearchService
         $must = [];
         $filter = [];
 
-        // Sempre restringe para documentos com rótulo de classificação preenchido.
-        $filter[] = [
-            'exists' => [
-                'field' => 'classificacao',
-            ],
-        ];
+        if (! $filters->includeSemClassificacao) {
+            // Restringe para documentos com rótulo de classificação preenchido.
+            $filter[] = [
+                'exists' => [
+                    'field' => 'classificacao',
+                ],
+            ];
+        }
 
         if (filled($filters->query)) {
             // Busca textual nos campos analisados com analyzer folded.

@@ -243,6 +243,18 @@
                                     </select>
                                 </div>
 
+                                <div class="flex items-center justify-between rounded-xl border border-white/10 bg-slate-900/60 px-3 py-2">
+                                    <div>
+                                        <p class="text-sm font-semibold text-slate-100">Incluir sem classificação</p>
+                                        <p class="text-xs text-slate-400">Exibe publicações sem rótulo atribuído.</p>
+                                    </div>
+                                    <label class="relative inline-flex cursor-pointer items-center">
+                                        <input type="checkbox" id="incluir_sem_classificacao" class="peer sr-only">
+                                        <div class="peer h-6 w-10 rounded-full border border-white/10 bg-slate-700 transition peer-checked:border-amber-300 peer-checked:bg-amber-400/80"></div>
+                                        <div class="absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition peer-checked:translate-x-4"></div>
+                                    </label>
+                                </div>
+
                                 <div class="flex flex-wrap gap-2 pt-2">
                                     <button
                                         type="button"

@@ -8,6 +8,8 @@ class SearchFilters
 {
     public ?string $query = null;
 
+    public bool $includeSemClassificacao = false;
+
     /** @var array<int, string> */
     public array $tribunais = [];
 
@@ -47,6 +49,7 @@ class SearchFilters
         $instance = new self();
 
         $instance->query = filled($input['query'] ?? null) ? (string) $input['query'] : null;
+        $instance->includeSemClassificacao = (bool) ($input['includeSemClassificacao'] ?? false);
         $instance->tribunais = array_values(array_filter((array) ($input['tribunais'] ?? [])));
         $instance->classes = array_values(array_filter((array) ($input['classes'] ?? [])));
         $instance->assuntos = array_values(array_filter((array) ($input['assuntos'] ?? [])));

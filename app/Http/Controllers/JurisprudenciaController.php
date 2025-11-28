@@ -44,10 +44,12 @@ class JurisprudenciaController extends Controller
             'page' => ['nullable', 'integer', 'min:1'],
             'sort_field' => ['nullable', 'in:data_julgamento,data_distribuicao,classificacao_confianca'],
             'sort_direction' => ['nullable', 'in:asc,desc'],
+            'incluir_sem_classificacao' => ['sometimes', 'boolean'],
         ]);
 
         $filters = SearchFilters::fromArray([
             'query' => $validated['q'] ?? null,
+            'includeSemClassificacao' => (bool) ($validated['incluir_sem_classificacao'] ?? false),
             'tribunais' => $validated['tribunais'] ?? [],
             'classes' => $validated['classes'] ?? [],
             'assuntos' => $validated['assuntos'] ?? [],
