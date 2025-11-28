@@ -28,7 +28,7 @@
                         </div>
                         <div>
                             <p class="text-xl font-semibold leading-tight">Detalhes do Processo</p>
-                            <p class="text-xs text-slate-400">Visualização detalhada no estilo JusBrasil</p>
+                            <p class="text-xs text-slate-400">Visualização detalhada</p>
                         </div>
                     </div>
                     <nav class="flex items-center gap-2">

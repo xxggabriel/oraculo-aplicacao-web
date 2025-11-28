@@ -17,7 +17,7 @@
                 },
             };
         </script>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-3fpCfpo3Dk8ZFihgrnhcwOZefkRq3glw/2B+7uwZ0mo=" crossorigin="anonymous"></script>
+        <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script defer src="{{ route('assets.script') }}"></script>
     </head>
     <body class="bg-slate-950 text-slate-50 antialiased">
