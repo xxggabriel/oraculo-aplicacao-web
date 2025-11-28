@@ -34,27 +34,35 @@ class NormalizedItem
     {
         $source = $hit['_source'] ?? [];
 
+        $toString = static function ($value): ?string {
+            if (is_array($value)) {
+                return implode('; ', array_filter(array_map('strval', $value)));
+            }
+
+            return $value !== null ? (string) $value : null;
+        };
+
         // Campos seguem o mapping do índice itens-normalizados.
         return new self(
             id: (string) ($source['id'] ?? $hit['_id'] ?? ''),
-            itemBrutoId: $source['item_bruto_id'] ?? null,
-            processo: $source['processo'] ?? null,
-            classe: $source['classe'] ?? null,
-            assunto: $source['assunto'] ?? null,
-            partes: $source['partes'] ?? null,
-            relator: $source['relator'] ?? null,
-            orgaoJulgador: $source['orgao_julgador'] ?? null,
-            teor: $source['teor'] ?? null,
-            resumo: $source['resumo'] ?? null,
+            itemBrutoId: $toString($source['item_bruto_id'] ?? null),
+            processo: $toString($source['processo'] ?? null),
+            classe: $toString($source['classe'] ?? null),
+            assunto: $toString($source['assunto'] ?? null),
+            partes: $toString($source['partes'] ?? null),
+            relator: $toString($source['relator'] ?? null),
+            orgaoJulgador: $toString($source['orgao_julgador'] ?? null),
+            teor: $toString($source['teor'] ?? null),
+            resumo: $toString($source['resumo'] ?? null),
             grau: isset($source['grau']) ? (int) $source['grau'] : null,
-            dataDistribuicao: $source['data_distribuicao'] ?? null,
-            dataJulgamento: $source['data_julgamento'] ?? null,
-            classificacao: $source['classificacao'] ?? null,
+            dataDistribuicao: $toString($source['data_distribuicao'] ?? null),
+            dataJulgamento: $toString($source['data_julgamento'] ?? null),
+            classificacao: $toString($source['classificacao'] ?? null),
             classificacaoConfianca: isset($source['classificacao_confianca']) ? (float) $source['classificacao_confianca'] : null,
             classificacaoEmbedding: (array) ($source['classificacao_embedding'] ?? []),
-            classificacaoModelo: $source['classificacao_modelo'] ?? null,
-            classificacaoVersao: $source['classificacao_versao'] ?? null,
-            classificadoEm: $source['classificado_em'] ?? null,
+            classificacaoModelo: $toString($source['classificacao_modelo'] ?? null),
+            classificacaoVersao: $toString($source['classificacao_versao'] ?? null),
+            classificadoEm: $toString($source['classificado_em'] ?? null),
             metadata: (array) ($source['metadata'] ?? []),
             raw: $hit,
         );
